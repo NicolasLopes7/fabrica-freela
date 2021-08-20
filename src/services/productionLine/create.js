@@ -4,5 +4,4 @@ module.exports = async (name) => {
   if (insertedProductionLines) {
     return insertedProductionLines[0];
   }
-  throw Error("An error occured on create productionLine");
 };
