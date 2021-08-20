@@ -11,3 +11,4 @@ app.use(express.json())
 app.use(productLineRoutes)
 
 app.listen(process.env.PORT || 5000)
+console.log("Application started 🔥")

@@ -8,5 +8,11 @@
     "express": "^4.17.1",
     "knex": "^0.21.21",
     "pg": "^8.7.1"
+  },
+  "scripts": {
+    "start:docker:dev": "npm install && nodemon ./src/server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
   }
 }
