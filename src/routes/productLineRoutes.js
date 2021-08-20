@@ -4,9 +4,9 @@ const ProductionLineController = require("../controllers/productionLineControlle
 
 const routes = Router();
 
-routes.post("/productLine", ProductionLineController.create);
-routes.put("/productLine/:id", ProductionLineController.update);
-routes.get("/productLines", ProductionLineController.index);
-routes.delete("/productLine/:id", ProductionLineController.delete);
+routes.post("/productionLine", ProductionLineController.create);
+routes.put("/productionLine/:id", ProductionLineController.update);
+routes.get("/productionLines", ProductionLineController.index);
+routes.delete("/productionLine/:id", ProductionLineController.delete);
 
 module.exports = routes;

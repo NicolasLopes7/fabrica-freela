@@ -37,6 +37,7 @@ class ProductionLineController {
           await db.update({ productionLineId: id }).where("id", operator);
         }
       }
+      return res.sendStatus(200);
     } catch (error) {
       res.status(500);
       return res.json({
@@ -48,14 +49,12 @@ class ProductionLineController {
       });
     }
 
-    return res.send(200);
   }
 
   async index(req, res) {
     try {
       const productionLines = await db
-        .select("Operator.name")
-        .join("Operator", "Operator.productionLineId", "ProductionLine.id")
+        .select("*")
         .where("deleted", false);
       return res.json({ productionLines });
     } catch (error) {
@@ -72,7 +71,7 @@ class ProductionLineController {
       res.status(500);
       return res.json(HTTPError(error));
     }
-    return res.send(200);
+    return res.sendStatus(200);
   }
 }
 
