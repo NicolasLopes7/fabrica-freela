@@ -1,14 +1,23 @@
-const express = require('express')
-const cors = require('cors')
+const express = require("express");
+const cors = require("cors");
 
-const productLineRoutes = require('./routes/productLineRoutes')
+const productLineRoutes = require("./routes/productLineRoutes");
 
-const app = express()
+const app = express();
 
-app.use(cors())
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
 
-app.use(productLineRoutes)
+if (process.env.NODE_ENV !== "PRODUCTION") {
+  app.use((req, res, next) => {
+    const { method, path } = req;
 
-app.listen(process.env.PORT || 5000)
-console.log("Application started 🔥")
+    console.log(`[${method}] - ${path}`);
+    next();
+  });
+}
+
+app.use(productLineRoutes);
+
+app.listen(process.env.PORT || 5000);
+console.log("Application started 🔥");

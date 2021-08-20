@@ -1,7 +1,5 @@
-const knex = require("../database/connection");
+const ProductionLineService = require("../services/productionLine");
 const HTTPError = require("../helpers/HTTPError");
-const db = knex("ProductionLine");
-
 class ProductionLineController {
   async create(req, res) {
     const { name } = req.body;
@@ -12,11 +10,9 @@ class ProductionLineController {
     }
 
     try {
-      const insertedProductionLines = await db.insert({ name }).returning("*");
+      const productionLine = await ProductionLineService.create(name);
 
-      const [newProductionLine] = insertedProductionLines;
-
-      return res.json({ productionLine: newProductionLine });
+      return res.json({ productionLine });
     } catch (error) {
       res.status(500);
       return res.json(HTTPError(error));
@@ -25,18 +21,17 @@ class ProductionLineController {
 
   async update(req, res) {
     const { id } = req.params;
-    const { name, operators } = req.body;
+    const { ...updateProductionLineData } = req.body;
+
+    if (Object.keys(req.body).length === 0) {
+      res.status(400);
+      return res.json({
+        error: { message: "Missing params to update productionLine" },
+      });
+    }
 
     try {
-      if (name) {
-        await db.update({ name }).where("id", id);
-      }
-
-      if (operators) {
-        for await (const operator of operators) {
-          await db.update({ productionLineId: id }).where("id", operator);
-        }
-      }
+      await ProductionLineService.update(id, updateProductionLineData);
       return res.sendStatus(200);
     } catch (error) {
       res.status(500);
@@ -48,14 +43,11 @@ class ProductionLineController {
         },
       });
     }
-
   }
 
   async index(req, res) {
     try {
-      const productionLines = await db
-        .select("*")
-        .where("deleted", false);
+      const productionLines = await ProductionLineService.get();
       return res.json({ productionLines });
     } catch (error) {
       res.status(500);
@@ -66,7 +58,8 @@ class ProductionLineController {
   async delete(req, res) {
     const { id } = req.params;
     try {
-      await db.update({ deleted: false }).where("id", id);
+      await ProductionLineService.delete(id)
+      return res.sendStatus(200)
     } catch (error) {
       res.status(500);
       return res.json(HTTPError(error));
