@@ -6,6 +6,7 @@ const operatorActionsRoutes = require("./routes/operatorActionsRoutes");
 const operatorRoutes = require("./routes/operatorRoutes");
 
 const parseQueryToString = require("./helpers/queryObjectToString");
+const parseRequestBodyToString = require("./helpers/requestBodyToString");
 
 const app = express();
 
@@ -16,7 +17,11 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
   app.use((req, res, next) => {
     const { method, path, query, body } = req;
 
-    console.log(`[${method}] - ${path}${parseQueryToString(query)}`);
+    console.log(
+      `[${method}] - ${path}${parseQueryToString(
+        query
+      )} ${parseRequestBodyToString(body)}`
+    );
     next();
   });
 }
