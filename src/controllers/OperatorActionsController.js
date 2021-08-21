@@ -3,10 +3,10 @@ const HTTPError = require("../helpers/HTTPError");
 
 class OperatorActionsController {
   async create(req, res) {
-    const { operatorId } = req.body;
+    const { machineId } = req.params;
 
     try {
-      const operatorAction = await OperatorActionService.create(operatorId);
+      const operatorAction = await OperatorActionService.create(machineId);
       return res.json({ operatorAction });
     } catch (error) {
       res.status(500);

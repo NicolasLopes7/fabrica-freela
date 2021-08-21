@@ -3,22 +3,22 @@ const HTTPError = require("../helpers/HTTPError");
 
 class OperatorController {
   async create(req, res) {
-    const { name, productionLineId } = req.body;
+    const { name, machineId } = req.body;
 
-    if (!name || !productionLineId) {
+    if (!name || !machineId) {
       res.status(400);
       return res.json({
         error: {
           message: "missing params",
           required: {
-            params: ["name", "productionLineId"],
+            params: ["name", "machineId"],
           },
         },
       });
     }
 
     try {
-      const operator = await OperatorService.create(name, productionLineId);
+      const operator = await OperatorService.create(name, machineId);
 
       return res.json({ operator });
     } catch (error) {
@@ -29,7 +29,7 @@ class OperatorController {
 
   async update(req, res) {
     const { operatorId } = req.params;
-    const { ...updateOperatorData } = req.body;
+    const { ...updatePayload } = req.body;
 
     if (Object.keys(req.body).length === 0) {
       res.status(400);
@@ -39,7 +39,7 @@ class OperatorController {
     }
 
     try {
-      await OperatorService.update(operatorId, updateOperatorData);
+      await OperatorService.update(operatorId, updatePayload);
       return res.sendStatus(200);
     } catch (error) {
       res.status(500);
