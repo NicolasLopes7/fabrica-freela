@@ -4,7 +4,7 @@ const OperatorActionsController = require("../controllers/OperatorActionsControl
 const validateGetOperatorActions = require("../middlewares/validateGetOperatorActions");
 const routes = Router();
 
-routes.post("/operatorAction", OperatorActionsController.create);
+routes.post("/operatorAction/:machineId", OperatorActionsController.create);
 routes.get(
   "/operatorActions",
   validateGetOperatorActions,
