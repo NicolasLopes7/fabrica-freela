@@ -1,7 +1,7 @@
 const db = require("../../database/connection")("Operator");
-module.exports = async (name, productionLineId) => {
+module.exports = async (name, machineId) => {
   const insertedOperators = await db
-    .insert({ name, productionLineId })
+    .insert({ name, machineId })
     .returning("*");
 
   return insertedOperators[0];
