@@ -4,6 +4,7 @@ const cors = require("cors");
 const productLineRoutes = require("./routes/productLineRoutes");
 const operatorActionsRoutes = require("./routes/operatorActionsRoutes");
 const operatorRoutes = require("./routes/operatorRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 const parseQueryToString = require("./helpers/queryObjectToString");
 
@@ -24,5 +25,6 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
 app.use(productLineRoutes);
 app.use(operatorActionsRoutes);
 app.use(operatorRoutes);
+app.use(userRoutes);
 app.listen(process.env.PORT || 5000);
 console.log("Application started 🔥");
