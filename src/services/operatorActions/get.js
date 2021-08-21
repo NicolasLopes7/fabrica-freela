@@ -29,7 +29,6 @@ module.exports = async ({
     ${getDateFilterWhereCondition(dateFilter)}
     
     `;
-  console.log(query);
   const operatorActions = await db.raw(query);
   return operatorActions.rows;
 };
