@@ -1,8 +1,10 @@
 const db = require("../../database/connection")("User");
 
-module.exports = async (login, password, role) => {
-    const insertedUser = await db.insert({login, password, role}).returning("*");
-    if (insertedUser){
-        return insertedUser[0];
-    }
-}
+module.exports = async (login, password) => {
+  const insertedUser = await db
+    .insert({ login, password, role: "admin" })
+    .returning("*");
+  if (insertedUser) {
+    return insertedUser[0];
+  }
+};
