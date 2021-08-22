@@ -11,7 +11,7 @@
     "pg": "^8.7.1"
   },
   "scripts": {
-    "start:docker:dev": "npm install && nodemon ./src/server.js"
+    "start:docker:dev": "npm install && nodemon --legacy-watch ./src/server.js"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
