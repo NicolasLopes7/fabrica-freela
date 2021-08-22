@@ -38,7 +38,25 @@ const userControllers = {
     await userServices.delete(userId)
 
     return res.sendStatus(200)
-  }
-};
+    },
+
+  async update(req, res) {
+    const {userId} = req.params
+    let {password} = req.body
+    
+    password = password.trim()
+    
+    if(password.trim().length == 0){
+      return res.json({ error: "o campo de nova senha deve estar preenchido"})
+    }
+    
+    else{
+      await userServices.update(userId, password)
+
+      return res.sendStatus(200)
+      }
+    }
+  };
+
 
 module.exports = userControllers
