@@ -1,4 +1,6 @@
-const db = require("../../database/connection")("Operator");
+const db = require("../../database/connection");
 module.exports = async (id, updatePayload) => {
-  await db.update(updatePayload).where("id", id);
+  console.log(id);
+  console.log(updatePayload);
+  await db("Operator").update(updatePayload).where("id", id);
 };

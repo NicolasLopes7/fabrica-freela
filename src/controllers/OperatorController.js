@@ -5,13 +5,13 @@ class OperatorController {
   async create(req, res) {
     const { name, machineId } = req.body;
 
-    if (!name || !machineId) {
+    if (!name) {
       res.status(400);
       return res.json({
         error: {
           message: "missing params",
           required: {
-            params: ["name", "machineId"],
+            params: ["name"],
           },
         },
       });

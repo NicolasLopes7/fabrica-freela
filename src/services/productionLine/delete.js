@@ -1,4 +1,4 @@
-const db = require("../../database/connection")("ProductionLine");
+const db = require("../../database/connection");
 module.exports = async (id) => {
-  await db.update({ deleted: true }).where("id", id);
+  await db("ProductionLine").update({ deleted: true }).where("id", id);
 };

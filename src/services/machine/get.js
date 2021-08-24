@@ -2,16 +2,21 @@ const connection = require("../../database/connection");
 module.exports = async () => {
   const query = `
   SELECT 
+   count(oa.id) AS actions,
    mac.id,
    op.name AS "operatorName",
    op.id AS "operatorId",
    pl.id AS "productionLineId",
    pl.name AS "productionLineName",
-   mac.name
+   mac.name,
+   mac.deleted AS "doubleDeleted"
   FROM "Machines" as mac
-   LEFT JOIN "Operator" as op ON op."machineId" = mac.id
+   RIGHT JOIN "Operator" as op ON mac.id = op."machineId"
    LEFT JOIN "ProductionLine" as pl ON mac."productionLineId" = pl."id"
-  WHERE mac.deleted=false AND pl.deleted=false
+   LEFT JOIN "OperatorAction" as oa ON mac."id" = oa."machineId"
+   WHERE mac.deleted = false
+  GROUP BY 2, 4, 5
+  ORDER BY id DESC
   `;
 
   const machines = await connection.raw(query);
@@ -26,5 +31,6 @@ module.exports = async () => {
       id: machine.productionLineId,
       name: machine.productionLineName,
     },
+    actions: machine.actions,
   }));
 };

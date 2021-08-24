@@ -1,6 +1,6 @@
-const db = require("../../database/connection")("Machines");
+const db = require("../../database/connection");
 module.exports = async (name, productionLineId) => {
-  const insertedMachines = await db
+  const insertedMachines = await db("Machines")
     .insert({ name, productionLineId })
     .returning("*");
 
