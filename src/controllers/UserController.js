@@ -6,7 +6,8 @@ class UserController {
     let { login, password, role } = req.body;
 
     password = password.trim()
-
+    login = login.trim()
+    
     if (!login || !password) {
       res.status(400);
       return res.json({
