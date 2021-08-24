@@ -3,7 +3,9 @@ const HTTPError = require("../helpers/HTTPError");
 
 class UserController {
   async create(req, res) {
-    const { login, password, role } = req.body;
+    let { login, password, role } = req.body;
+
+    password = password.trim()
 
     if (!login || !password) {
       res.status(400);
