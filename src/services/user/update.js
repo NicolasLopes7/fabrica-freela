@@ -1,7 +1,7 @@
-const db = require("../../database/connection")("User");
+const db = require("../../database/connection");
 
 module.exports = async (id, password) => {
 
-    return await db.update({password: password}).where("id", id)
+    return await db("User").update({password: password}).where("id", id)
 
 }

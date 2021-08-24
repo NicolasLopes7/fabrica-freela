@@ -1,5 +1,5 @@
-const db = require("../../database/connection")("User");
+const db = require("../../database/connection");
 
 module.exports = async (id) => {
-   return await db.delete().where("id", id)
+   return await db("User").delete().where("id", id)
 }
