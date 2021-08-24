@@ -11,4 +11,3 @@ routes.put("/user/:userId", UserController.update)
 
 
 module.exports = routes;
-module.exports = routes;
